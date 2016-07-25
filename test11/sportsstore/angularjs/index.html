@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+
+<head>
+    <meta charset="utf-8">
+    <title>SportsStore</title>
+    <script src="angular.js"></script>
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="bootstrap-theme.css">
+
+    <script>
+        angular.module("exampleApp",[])
+            .controller("defaultCtrl",function($scope){
+                $scope.dataSource="controller";
+            })
+            .directive("panel",function(){
+                return {
+                    link:function(scope,element,attrs){
+                        scope.dataSource="directive";
+                    },
+                    restrict:"E",
+                    scope:true,
+                    template:function(){
+                        return angular.element(document.querySelector("#Template")).html();
+                    },
+                    transclude:true
+                }
+            })
+
+    </script>
+    <script id="Template">
+          <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>This is the panel</h4>
+                </div>
+                <div class="panel-body" ng-transclude>
+
+                </div>
+            </div>
+    </script>
+</head>
+
+<body ng-controller="defaultCtrl">
+    <panel >
+        the data value comes form the :{{dataSource}}
+    </panel>
+
+
+
+</body>
+
+</html>
